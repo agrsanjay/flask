@@ -35,7 +35,7 @@ def get_ohlc_data():
     days = int(req['days'])
     expiry_date = get_current_expiry_date(index_symbol)
     data = ks_api.get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=days,index_symbol=index_symbol,expiry_date=expiry_date)
-    data.to_csv("data.csv",index=False)
+    
     data = make_json(data)
     
     return data
