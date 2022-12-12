@@ -20,8 +20,8 @@ response = requests.get('https://tradeapi.kotaksecurities.com/apim/scripmaster/1
 
 response = json.loads(response.text)['Success']
 
-fno_url = 'https://preferred.kotaksecurities.com/security/production/TradeApiInstruments_FNO_09_12_2022.txt'
-cash_url = 'https://preferred.kotaksecurities.com/security/production/TradeApiInstruments_Cash_09_12_2022.txt'
+fno_url = response['fno']
+cash_url = response['cash']
 
 fno_response = requests.get(fno_url)
 
