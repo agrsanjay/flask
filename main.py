@@ -34,10 +34,12 @@ def get_ohlc_data():
     pe_strike = req["pe_strike"]
     days = int(req['days'])
     expiry_date = get_current_expiry_date(index_symbol)
-    data = ks_api.get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=days,index_symbol=index_symbol,expiry_date=expiry_date)
+    combined_data,call_data,put_data = ks_api.get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=days,index_symbol=index_symbol,expiry_date=expiry_date)
     
-    data = make_json(data)
-    
+    combined_data = make_json(combined_data)
+    call_data = make_json(call_data)
+    put_data = make_json(put_data)
+    data = {"combined":combined_data,"call":call_data,"put":put_data}
     return data
 
 

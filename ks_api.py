@@ -55,6 +55,8 @@ def get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=0,index_symbol
     dates = sorted(dates)
     ce_data = ce_data.loc[ce_data.index.isin(dates)]
     pe_data = pe_data.loc[pe_data.index.isin(dates)]
+    ce_data['date'] = ce_data.index
+    pe_data['date'] = pe_data.index
     combined_data = pd.DataFrame()
     combined_data['date'] = ce_data.index
     
@@ -74,4 +76,4 @@ def get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=0,index_symbol
     combined_data ['high'],combined_data ['low'] ,combined_data ['volume'] = pd.DataFrame(high),pd.DataFrame(low),pd.DataFrame(volume)
     combined_data ['open'],combined_data ['close']  = pd.DataFrame(open),pd.DataFrame(close)
         
-    return combined_data
+    return combined_data,ce_data,pe_data
