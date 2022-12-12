@@ -67,7 +67,7 @@ def get_combined_data(ce_strike,pe_strike,is_supertrend=None,days=0,index_symbol
     close = []
     volume = []
     for i in dates:
-        volume.append(ce_data['volume'][i]+pe_data["volume"][i])
+        volume.append(float(ce_data['volume'][i]+pe_data["volume"][i])/2)
         close.append(ce_data['close'][i]+pe_data["close"][i])
         open.append(ce_data['open'][i]+pe_data["open"][i])
         low.append(min([ce_data['open'][i]+pe_data["open"][i],ce_data['close'][i]+pe_data["close"][i],ce_data['high'][i]+pe_data["low"][i],ce_data['low'][i]+pe_data["high"][i]]))

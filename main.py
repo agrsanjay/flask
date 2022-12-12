@@ -9,11 +9,23 @@ from parameter import *
 app = Flask(__name__)
 CORS(app)
 
+def vwap(df):
+    df['open']  = df.open.astype(float)
+    df['high']  = df.high.astype(float)
+    df['low']   = df.low.astype(float)
+    df['close'] = df.close.astype(float)
+    df['volume'] = df.volume.astype(float)
+    v = df['volume'].values
+    tp = (df['low'] + df['close'] + df['high']).div(3).values
+    return df.assign(vwap=(tp * v).cumsum() / v.cumsum())
+
+
 
 def make_json(data):
     
     # create a dictionary
     data['date'] =data['date'].astype(str)
+    data=vwap(data)
     new_data = {
         "date": data['date'].to_list(),
          "open": data['open'].to_list(),
@@ -21,6 +33,7 @@ def make_json(data):
            "low": data['low'].to_list(),
             "close": data['close'].to_list(),
             "volume": data['volume'].to_list(),
+            "vwap": data['vwap'].to_list(),
             #"supertrend": data['supertrend'].to_list()
     }
     return new_data
