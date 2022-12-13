@@ -4,7 +4,7 @@ from flask_cors import CORS
 import json
 import ks_api
 from parameter import *
-
+from stockstats import StockDataFrame,wrap
 
 app = Flask(__name__)
 CORS(app)
@@ -19,13 +19,19 @@ def vwap(df):
     tp = (df['low'] + df['close'] + df['high']).div(3).values
     return df.assign(vwap=(tp * v).cumsum() / v.cumsum())
 
-
+def supertrend(df):
+    df = wrap(df)
+    StockDataFrame.SUPERTREND_WINDOW = 10
+    StockDataFrame.SUPERTREND_MUL = 3
+    df['date'] = df.index
+    return df
 
 def make_json(data):
     
     # create a dictionary
     data['date'] =data['date'].astype(str)
     data=vwap(data)
+    data = supertrend(data)
     new_data = {
         "date": data['date'].to_list(),
          "open": data['open'].to_list(),
@@ -34,7 +40,7 @@ def make_json(data):
             "close": data['close'].to_list(),
             "volume": data['volume'].to_list(),
             "vwap": data['vwap'].to_list(),
-            #"supertrend": data['supertrend'].to_list()
+            "supertrend": data['supertrend'].to_list()
     }
     return new_data
 
