@@ -12,11 +12,13 @@ IST = timezone('Asia/Kolkata')
 
 
 
-def get_current_expiry_date(index_symbol):
+def get_current_expiry_date(index_symbol,expiry ):
     df = fno_script_master
     df["expiry"] = pd.to_datetime(df["expiry"])
     scrip_master = (df.loc[df["instrumentName"] == index_symbol]).sort_values(by=["expiry"])
-    return (scrip_master['expiry'].iloc[0]).strftime("%d%b%y").upper()
+    expiry_dates = sorted(list(set(scrip_master['expiry'].to_list())))
+    print(expiry_dates)
+    return (expiry_dates[expiry]).strftime("%d%b%y").upper()
 
 
 
