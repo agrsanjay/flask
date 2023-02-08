@@ -32,7 +32,7 @@ cash_response = requests.get(cash_url)
 
 cash_df = pd.read_csv(io.StringIO(cash_response.text), sep="|")
 
-fno_script_master = fno_df.loc[(fno_df['segment'] == "FO") ]
-fno_script_master = fno_script_master.loc[(fno_script_master['instrumentType']=="OI")]
+# fno_script_master = fno_df.loc[(fno_df['segment'] == "FO") ]
+# fno_script_master = fno_script_master.loc[(fno_script_master['instrumentType']=="OI")]
 
-fno_script_master.to_csv("fno.csv")
+fno_df.to_csv("fno.csv")
