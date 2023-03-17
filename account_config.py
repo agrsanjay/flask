@@ -1,5 +1,3 @@
+user_id = 'SO3514'
 
-user_id = 'SA07121967'
-
-access_token = '89c77305-de62-3390-b0cd-040f4b10979d'
-
+access_token = '91020424-f5f7-3fb1-891e-6082ca2e2960'
